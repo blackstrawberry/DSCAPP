@@ -134,6 +134,7 @@ return response.json();
     }
     else if(search[0].level == '1'){
         removedom();
+        document.querySelector('.info').style.visibility = "hidden";
         let newimg = document.createElement('img');
         place.appendChild(newimg);
         place.querySelector('img').setAttribute("src", search[0].desctiption_image);

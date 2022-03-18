@@ -306,10 +306,6 @@ header {
 .swiper-slide h3 {
   position: absolute;
   font-size: 15px;
-  width: 30px;
-  height: 30px;
-  line-height: 30px;
-  background-color: #fff;
   border-radius: 50px;
   top: 10px;
   left: 10px;
