@@ -28,7 +28,7 @@ body {
   left: 0;
   width: 100%;
   height: 100vh;
-  background-image: url("/img/map.svg");
+  background-image: url("https://blackstrawberry.github.io/DSCAPP/img/map.svg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
