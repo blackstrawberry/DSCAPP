@@ -167,7 +167,82 @@ return response.json();
     }
     searchForm.addEventListener("submit", handleInput);
 
-    
+    $('.child1').on("click", function() {
+        selected = [];
+        search = [];
+        let temp = 0;
+        const text = document.querySelector('.child .child1').innerText;
+        for(i=0;i<mydata.length;i++){
+            if(text === mydata[i].name){
+                search.push(mydata[i]);
+                selected.push([{"id": mydata[i].id, "label": mydata[i].name}]);
+                temp = mydata[i].id;
+            }
+        }        
+        for(i=0;i<mydata.length;i++){
+            if(temp === mydata[i].from){
+                search.push(mydata[i]);
+            }
+        }
+        if(temp == 0){
+            selected = [];
+            selected.push([{"id":0,"label":"0"}]);
+        }
+        console.log("search : ",search);
+        console.log("selected : ",selected);
+        showsidebar();
+    });
+    $('.child2').on("click", function() {
+        selected = [];
+        search = [];
+        let temp = 0;
+        const text = document.querySelector('.child .child2').innerText;
+        for(i=0;i<mydata.length;i++){
+            if(text === mydata[i].name){
+                search.push(mydata[i]);
+                selected.push([{"id": mydata[i].id, "label": mydata[i].name}]);
+                temp = mydata[i].id;
+            }
+        }        
+        for(i=0;i<mydata.length;i++){
+            if(temp === mydata[i].from){
+                search.push(mydata[i]);
+            }
+        }
+        if(temp == 0){
+            selected = [];
+            selected.push([{"id":0,"label":"0"}]);
+        }
+        console.log("search : ",search);
+        console.log("selected : ",selected);
+        showsidebar();
+    });
+    $('.child3').on("click", function() {
+        selected = [];
+        search = [];
+        let temp = 0;
+        const text = document.querySelector('.child .child3').innerText;
+        for(i=0;i<mydata.length;i++){
+            if(text === mydata[i].name){
+                search.push(mydata[i]);
+                selected.push([{"id": mydata[i].id, "label": mydata[i].name}]);
+                temp = mydata[i].id;
+            }
+        }        
+        for(i=0;i<mydata.length;i++){
+            if(temp === mydata[i].from){
+                search.push(mydata[i]);
+            }
+        }
+        if(temp == 0){
+            selected = [];
+            selected.push([{"id":0,"label":"0"}]);
+        }
+        console.log("search : ",search);
+        console.log("selected : ",selected);
+        showsidebar();
+    });
+
 
 
     function removedom() {
@@ -175,6 +250,9 @@ return response.json();
         const info_1 = document.querySelector(".info .info_1");
         const info_2 = document.querySelector(".info .info_2");
         const info_3 = document.querySelector(".info .info_3");
+        document.querySelector('.child .child1').innerText = '';
+        document.querySelector('.child .child2').innerText = '';
+        document.querySelector('.child .child3').innerText = '';
 
         while ( place.hasChildNodes() ) { 
             place.removeChild( place.firstChild ); 
@@ -224,11 +302,14 @@ return response.json();
             let li = document.createElement('li');
             place.querySelector('ul').appendChild(li);
             place.querySelector('ul li').innerText = "하위항목 : "+(search.length-1);
+            const child = document.querySelector('.child');
             for(i=1;i<search.length;i++){
-                let newh2 = document.createElement('h2');
                 let text = document.createTextNode(search[i].name);
-                newh2.appendChild(text);
-                place.appendChild(newh2);
+                document.querySelector('.child'+i).appendChild(text);
+                // let newh2 = document.createElement('h2');
+                // let text = document.createTextNode(search[i].name);
+                // newh2.appendChild(text);
+                // place.appendChild(newh2);
             }
         }
         else if(search[0].level == '2' || search[0].level == '3'){
