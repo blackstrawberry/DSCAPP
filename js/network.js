@@ -66,7 +66,6 @@ return response.json();
         },
         
         edges:{
-            arrows: '',
             color: '#ff5234',
             font: '1px arial #ff0000',
             scaling:{
@@ -81,12 +80,96 @@ return response.json();
     let network = new vis.Network(container, data, options);
     let selected = [];
     let search = [];
+    
     network.on( 'click', function(properties) {
-    let ids = properties.nodes;
-    let clickedNodes = nodes.get(ids);
+        let ids = properties.nodes;
+        let clickedNodes = nodes.get(ids);
+        
+        if (clickedNodes[0] == undefined) {
+            selected.push([{"id":0,"label":"0"}]);
+            search = []
+        }
+        else{
+            selected = [];
+            selected.push(clickedNodes);
+            search = [];
+            for(i=0;i<mydata.length;i++){
+                if(selected[selected.length - 1][0].id===mydata[i].id || selected[selected.length - 1][0].id===mydata[i].from){
+                    search.push(mydata[i]);
+                }
+            }
+        }
+        // console.log(selected);
+        // console.log(search);
+        showsidebar();
+        
+        // const searchForm = document.querySelector('.serch_area');
+        // const getinput = document.querySelector('.serch_area input');
+        
+        // function handleInput(event) {
+        //     event.preventDefault();
+        //     const newSearch = getinput.value;
+        //     getinput.value = "";
+        //     selected = [];
+        //     search = [];
+        //     let temp = 0;
+        //     for(i=0;i<mydata.length;i++){
+        //         if(newSearch === mydata[i].name){
+        //             search.push(mydata[i]);
+        //             temp = mydata[i].id;
+        //         }
+        //     }        
+        //     for(i=0;i<mydata.length;i++){
+        //         if(temp === mydata[i].from){
+        //             search.push(mydata[i]);
+        //         }
+        //     }
+        //     if(temp == 0){
+        //         selected = [];
+        //         selected.push([{"id":0,"label":"0"}]);
+        //     }
+        //     console.log(search);
+        //     showsidebar();
+        // }
+        // searchForm.addEventListener("submit", handleInput);
 
-    const place = document.querySelector(".place");
-    const info = document.querySelector(".info");
+    });
+
+    const searchForm = document.querySelector('.serch_area');
+    const getinput = document.querySelector('.serch_area input');
+    
+    function handleInput(event) {
+        event.preventDefault();
+        const newSearch = getinput.value;
+        getinput.value = "";
+        selected = [];
+        search = [];
+        let temp = 0;
+        for(i=0;i<mydata.length;i++){
+            if(newSearch === mydata[i].name){
+                search.push(mydata[i]);
+                selected.push([{"id": mydata[i].id, "label": mydata[i].name}]);
+                temp = mydata[i].id;
+            }
+        }        
+        for(i=0;i<mydata.length;i++){
+            if(temp === mydata[i].from){
+                search.push(mydata[i]);
+            }
+        }
+        if(temp == 0){
+            selected = [];
+            selected.push([{"id":0,"label":"0"}]);
+        }
+        console.log("search : ",search);
+        console.log("selected : ",selected);
+        showsidebar();
+    }
+    searchForm.addEventListener("submit", handleInput);
+
+    
+
+
     function removedom() {
         const place = document.querySelector(".place");
         const info_1 = document.querySelector(".info .info_1");
@@ -106,103 +189,127 @@ return response.json();
             info_3.removeChild( info_3.firstChild ); 
         }
     }
-    
-    
-    if (clickedNodes[0] == undefined) {
-        selected.push([{"id":0,"label":"0"}]);
-    }
-    else{
-        selected = [];
-        selected.push(clickedNodes);
-        search = [];
-        for(i=0;i<mydata.length;i++){
-            if(selected[selected.length - 1][0].id===mydata[i].id || selected[selected.length - 1][0].id===mydata[i].from){
-                search.push(mydata[i]);
-            }
-        }
-    }
-    // console.log(selected);
-    // console.log(search);
 
-    if(selected[selected.length - 1][0].id == 0){
-        removedom();
-        let newh2 = document.createElement('h2');
-        let text = document.createTextNode("노드를 선택해 주세요.");
-        newh2.appendChild(text);
-        place.appendChild(newh2);
-        document.querySelector('.info').style.visibility = "hidden";
-    }
-    else if(search[0].level == '1'){
-        removedom();
-        document.querySelector('.info').style.visibility = "hidden";
-        let newimg = document.createElement('img');
-        place.appendChild(newimg);
-        place.querySelector('img').setAttribute("src", search[0].desctiption_image);
-        place.querySelector('img').setAttribute("alt", search[0].name);
-        place.querySelector('img').setAttribute("width", "100%");
-        place.querySelector('img').setAttribute("height","40%");
-        let newh2 = document.createElement('h1');
-        let text = document.createTextNode(search[0].name);
-        newh2.appendChild(text);
-        place.appendChild(newh2);
-        let newdes = document.createElement('p');
-        let destext = document.createTextNode(search[0].description);
-        newdes.appendChild(destext);
-        place.appendChild(newdes);
-
-        let count = document.createElement('ul');
-        place.appendChild(count);
-        let li = document.createElement('li');
-        place.querySelector('ul').appendChild(li);
-        place.querySelector('ul li').innerText = "하위항목 : "+(search.length-1);
-        for(i=1;i<search.length;i++){
+    function showsidebar() {
+        const place = document.querySelector(".place");
+        const info = document.querySelector(".info");
+        if(selected[selected.length - 1][0].id == 0){
+            removedom();
             let newh2 = document.createElement('h2');
-            let text = document.createTextNode(search[i].name);
+            let text = document.createTextNode("노드를 선택해 주세요.");
             newh2.appendChild(text);
             place.appendChild(newh2);
+            document.querySelector('.info').style.visibility = "hidden";
         }
-    }
-    else if(search[0].level == '2' || search[0].level == '3'){
-        removedom();
-        document.querySelector('.info').style.visibility = "visible";
-        let newimg = document.createElement('img');
-        place.appendChild(newimg);
-        place.querySelector('img').setAttribute("src", search[0].desctiption_image);
-        place.querySelector('img').setAttribute("alt", search[0].name);
-        place.querySelector('img').setAttribute("width", "100%");
-        place.querySelector('img').setAttribute("height","40%");
-        if(search[0].desctiption_image==""){
-            place.querySelector('img').setAttribute("src", search[1].desctiption_image);
-            place.querySelector('img').setAttribute("alt", search[1].name);
+        else if(search[0].level == '1'){
+            removedom();
+            document.querySelector('.info').style.visibility = "hidden";
+            let newimg = document.createElement('img');
+            place.appendChild(newimg);
+            place.querySelector('img').setAttribute("src", search[0].desctiption_image);
+            place.querySelector('img').setAttribute("alt", search[0].name);
             place.querySelector('img').setAttribute("width", "100%");
             place.querySelector('img').setAttribute("height","40%");
-        }
-        let newh2 = document.createElement('h1');
-        let text = document.createTextNode(search[0].name);
-        let newdes = document.createElement('p');
-        let destext = document.createTextNode(search[0].description);
-        newh2.appendChild(text);
-        place.appendChild(newh2);
-        newdes.appendChild(destext);
-        place.appendChild(newdes);
-        
-        console.log(search);
-        if(search[0].level == '2'){
-            for(i=1;i<search.length;i++){
-                let newname = document.createElement('h3');
-                let newimg = document.createElement('img');
-                let newdes = document.createElement('p');
-                info.querySelector(".info_"+i).appendChild(newname);
-                info.querySelector(".info_"+i).appendChild(newimg);
-                info.querySelector(".info_"+i).appendChild(newdes);
-                info.querySelector(".info_"+i+" p").className = "second";
+            let newh2 = document.createElement('h1');
+            let text = document.createTextNode(search[0].name);
+            newh2.appendChild(text);
+            place.appendChild(newh2);
+            let newdes = document.createElement('p');
+            let destext = document.createTextNode(search[0].description);
+            newdes.appendChild(destext);
+            place.appendChild(newdes);
     
-                info.querySelector(".info_"+i+" h3").innerText = search[i].name;
-                info.querySelector(".info_"+i+" img").setAttribute("src", search[i].desctiption_image);
-                info.querySelector(".info_"+i+" .second").innerText = search[i].description;
+            let count = document.createElement('ul');
+            place.appendChild(count);
+            let li = document.createElement('li');
+            place.querySelector('ul').appendChild(li);
+            place.querySelector('ul li').innerText = "하위항목 : "+(search.length-1);
+            for(i=1;i<search.length;i++){
+                let newh2 = document.createElement('h2');
+                let text = document.createTextNode(search[i].name);
+                newh2.appendChild(text);
+                place.appendChild(newh2);
             }
         }
-        if(search[0].level == '3'){
+        else if(search[0].level == '2' || search[0].level == '3'){
+            removedom();
+            document.querySelector('.info').style.visibility = "visible";
+            let newimg = document.createElement('img');
+            place.appendChild(newimg);
+            place.querySelector('img').setAttribute("src", search[0].desctiption_image);
+            place.querySelector('img').setAttribute("alt", search[0].name);
+            place.querySelector('img').setAttribute("width", "100%");
+            place.querySelector('img').setAttribute("height","40%");
+            if(search[0].desctiption_image==""){
+                place.querySelector('img').setAttribute("src", search[1].desctiption_image);
+                place.querySelector('img').setAttribute("alt", search[1].name);
+                place.querySelector('img').setAttribute("width", "100%");
+                place.querySelector('img').setAttribute("height","40%");
+            }
+            let newh2 = document.createElement('h1');
+            let text = document.createTextNode(search[0].name);
+            let newdes = document.createElement('p');
+            let destext = document.createTextNode(search[0].description);
+            newh2.appendChild(text);
+            place.appendChild(newh2);
+            newdes.appendChild(destext);
+            place.appendChild(newdes);
+            
+            if(search[0].level == '2'){
+                for(i=1;i<search.length;i++){
+                    let newname = document.createElement('h3');
+                    let newimg = document.createElement('img');
+                    let newdes = document.createElement('p');
+                    info.querySelector(".info_"+i).appendChild(newname);
+                    info.querySelector(".info_"+i).appendChild(newimg);
+                    info.querySelector(".info_"+i).appendChild(newdes);
+                    info.querySelector(".info_"+i+" p").className = "second";
+        
+                    info.querySelector(".info_"+i+" h3").innerText = search[i].name;
+                    info.querySelector(".info_"+i+" img").setAttribute("src", search[i].desctiption_image);
+                    info.querySelector(".info_"+i+" .second").innerText = search[i].description;
+                }
+            }
+            if(search[0].level == '3'){
+                let count = document.createElement('ul');
+                place.appendChild(count);
+                let li1 = document.createElement('li');
+                let li2 = document.createElement('li');
+                place.querySelector('ul').appendChild(li1);
+                place.querySelector('ul').appendChild(li2);
+                let star = document.createElement('img');
+                place.querySelectorAll("ul li")[0].appendChild(star);
+                place.querySelector("ul li img").setAttribute("src", "./img/star.svg");
+                place.querySelectorAll('ul li')[1].innerText = (search[0].star_rating)+" / 하위항목 : "+(search.length-1);
+                for(i=1;i<search.length;i++){
+                    let newname = document.createElement('h3');
+                    let newimg = document.createElement('img');
+                    let newdes = document.createElement('p');
+                    info.querySelector(".info_"+i).appendChild(newname);
+                    info.querySelector(".info_"+i).appendChild(newimg);
+                    info.querySelector(".info_"+i).appendChild(newdes);
+                    info.querySelector(".info_"+i+" p").className = "second";
+        
+                    info.querySelector(".info_"+i+" h3").innerText = search[i].name;
+                    info.querySelector(".info_"+i+" img").setAttribute("src", search[i].review_image);
+                    info.querySelector(".info_"+i+" .second").innerText = search[i].review;
+                }
+            }
+        }
+        else{
+            removedom();
+            let newimg = document.createElement('img');
+            place.appendChild(newimg);
+            place.querySelector('img').setAttribute("src", search[0].review_image);
+            place.querySelector('img').setAttribute("width", "100%");
+            place.querySelector('img').setAttribute("height","40%");
+            place.querySelector('img').setAttribute("alt", search[0].name);
+            let newh2 = document.createElement('h1');
+            let text = document.createTextNode(search[0].name);
+            let newdes = document.createElement('p');
+            let destext = document.createTextNode(search[0].review);
+            newh2.appendChild(text);
+            place.appendChild(newh2);
             let count = document.createElement('ul');
             place.appendChild(count);
             let li1 = document.createElement('li');
@@ -212,51 +319,11 @@ return response.json();
             let star = document.createElement('img');
             place.querySelectorAll("ul li")[0].appendChild(star);
             place.querySelector("ul li img").setAttribute("src", "./img/star.svg");
-            place.querySelectorAll('ul li')[1].innerText = (search[0].star_rating)+" / 하위항목 : "+(search.length-1);
-            for(i=1;i<search.length;i++){
-                let newname = document.createElement('h3');
-                let newimg = document.createElement('img');
-                let newdes = document.createElement('p');
-                info.querySelector(".info_"+i).appendChild(newname);
-                info.querySelector(".info_"+i).appendChild(newimg);
-                info.querySelector(".info_"+i).appendChild(newdes);
-                info.querySelector(".info_"+i+" p").className = "second";
-    
-                info.querySelector(".info_"+i+" h3").innerText = search[i].name;
-                info.querySelector(".info_"+i+" img").setAttribute("src", search[i].review_image);
-                info.querySelector(".info_"+i+" .second").innerText = search[i].review;
-            }
+            place.querySelectorAll('ul li')[1].innerText = (search[0].star_rating)+"/5";
+            newdes.appendChild(destext);
+            place.appendChild(newdes);
+            document.querySelector('.info').style.visibility = "hidden";
         }
     }
-    else{
-        removedom();
-        let newimg = document.createElement('img');
-        place.appendChild(newimg);
-        place.querySelector('img').setAttribute("src", search[0].review_image);
-        place.querySelector('img').setAttribute("width", "100%");
-        place.querySelector('img').setAttribute("height","40%");
-        place.querySelector('img').setAttribute("alt", search[0].name);
-        let newh2 = document.createElement('h1');
-        let text = document.createTextNode(search[0].name);
-        let newdes = document.createElement('p');
-        let destext = document.createTextNode(search[0].review);
-        newh2.appendChild(text);
-        place.appendChild(newh2);
-        let count = document.createElement('ul');
-        place.appendChild(count);
-        let li1 = document.createElement('li');
-        let li2 = document.createElement('li');
-        place.querySelector('ul').appendChild(li1);
-        place.querySelector('ul').appendChild(li2);
-        let star = document.createElement('img');
-        place.querySelectorAll("ul li")[0].appendChild(star);
-        place.querySelector("ul li img").setAttribute("src", "./img/star.svg");
-        place.querySelectorAll('ul li')[1].innerText = (search[0].star_rating)+"/5";
-        newdes.appendChild(destext);
-        place.appendChild(newdes);
-        document.querySelector('.info').style.visibility = "hidden";
-    }
-
-    });
 
 });
