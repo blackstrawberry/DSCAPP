@@ -11,7 +11,12 @@ return response.json();
     const set_edges = [];
 
     for(i=0;i<mydata.length;i++){
-        set_nodes.push({"id":mydata[i].id,"label":mydata[i].name});
+        if (mydata[i].desctiption_image == ''){
+            set_nodes.push({"id":mydata[i].id,"label":mydata[i].name, "shape": "circularImage", "image": mydata[i].review_image});
+        }
+        else{
+            set_nodes.push({"id":mydata[i].id,"label":mydata[i].name, "shape": "circularImage", "image": mydata[i].desctiption_image});
+        }
         set_edges.push({"from":mydata[i].from,"to":mydata[i].to});
     }
     let nodes = new vis.DataSet(set_nodes);
@@ -19,16 +24,14 @@ return response.json();
 
     // create a network
     let container = document.getElementById('mynetwork');
-    let container_place = document.getElementById('place_window');
-    let container_review = document.getElementById('review_window');
 
     // provide the data in the vis format
-    var data = {
+    let data = {
         nodes: nodes,
         edges: edges
     };
-    var options = {
-        
+    let options = {
+        clickToUse: true,
         nodes:{
             color:{
                 border:'#fff',
@@ -43,7 +46,7 @@ return response.json();
                 },
             },
             font: {
-                color: '#343434',
+                color: '#ffffff',
                 size: 18, // px
                 face: 'arial',
                 background: 'none',
@@ -59,7 +62,7 @@ return response.json();
                     vadjust: 0,
                     mod: 'bold'
                 },
-            },
+            }
         },
         
         edges:{
@@ -72,7 +75,6 @@ return response.json();
             shadow: false,
             smooth: true,
         },
-    
     };
 
     // initialize your network!
@@ -82,10 +84,34 @@ return response.json();
     network.on( 'click', function(properties) {
     let ids = properties.nodes;
     let clickedNodes = nodes.get(ids);
+
+    const place = document.querySelector(".place");
+    const info = document.querySelector(".info");
+    function removedom() {
+        const place = document.querySelector(".place");
+        const info_1 = document.querySelector(".info .info_1");
+        const info_2 = document.querySelector(".info .info_2");
+        const info_3 = document.querySelector(".info .info_3");
+
+        while ( place.hasChildNodes() ) { 
+            place.removeChild( place.firstChild ); 
+        }
+        while ( info_1.hasChildNodes() ) { 
+            info_1.removeChild( info_1.firstChild ); 
+        }
+        while ( info_2.hasChildNodes() ) { 
+            info_2.removeChild( info_2.firstChild ); 
+        }
+        while ( info_3.hasChildNodes() ) { 
+            info_3.removeChild( info_3.firstChild ); 
+        }
+    }
+    
+    
     if (clickedNodes[0] == undefined) {
         selected.push([{"id":0,"label":"0"}]);
-        
-    }else{
+    }
+    else{
         selected = [];
         selected.push(clickedNodes);
         search = [];
@@ -94,149 +120,143 @@ return response.json();
                 search.push(mydata[i]);
             }
         }
-        if(search.length<=3){
-            for(i=search.length;i<4;i++){
-                search.push({
-                        description: "",
-                        desctiption_image: "",
-                        from: '',
-                        id: '',
-                        level: '',
-                        name: "",
-                        review: "",
-                        review_image: "",
-                        star_rating: "",
-                        to: ''
-                    });
+    }
+    // console.log(selected);
+    // console.log(search);
+
+    if(selected[selected.length - 1][0].id == 0){
+        removedom();
+        let newh2 = document.createElement('h2');
+        let text = document.createTextNode("노드를 선택해 주세요.");
+        newh2.appendChild(text);
+        place.appendChild(newh2);
+        document.querySelector('.info').style.visibility = "hidden";
+    }
+    else if(search[0].level == '1'){
+        removedom();
+        document.querySelector('.info').style.visibility = "hidden";
+        let newimg = document.createElement('img');
+        place.appendChild(newimg);
+        place.querySelector('img').setAttribute("src", search[0].desctiption_image);
+        place.querySelector('img').setAttribute("alt", search[0].name);
+        place.querySelector('img').setAttribute("width", "100%");
+        place.querySelector('img').setAttribute("height","40%");
+        let newh2 = document.createElement('h1');
+        let text = document.createTextNode(search[0].name);
+        newh2.appendChild(text);
+        place.appendChild(newh2);
+        let newdes = document.createElement('p');
+        let destext = document.createTextNode(search[0].description);
+        newdes.appendChild(destext);
+        place.appendChild(newdes);
+
+        let count = document.createElement('ul');
+        place.appendChild(count);
+        let li = document.createElement('li');
+        place.querySelector('ul').appendChild(li);
+        place.querySelector('ul li').innerText = "하위항목 : "+(search.length-1);
+        for(i=1;i<search.length;i++){
+            let newh2 = document.createElement('h2');
+            let text = document.createTextNode(search[i].name);
+            newh2.appendChild(text);
+            place.appendChild(newh2);
+        }
+    }
+    else if(search[0].level == '2' || search[0].level == '3'){
+        removedom();
+        document.querySelector('.info').style.visibility = "visible";
+        let newimg = document.createElement('img');
+        place.appendChild(newimg);
+        place.querySelector('img').setAttribute("src", search[0].desctiption_image);
+        place.querySelector('img').setAttribute("alt", search[0].name);
+        place.querySelector('img').setAttribute("width", "100%");
+        place.querySelector('img').setAttribute("height","40%");
+        if(search[0].desctiption_image==""){
+            place.querySelector('img').setAttribute("src", search[1].desctiption_image);
+            place.querySelector('img').setAttribute("alt", search[1].name);
+            place.querySelector('img').setAttribute("width", "100%");
+            place.querySelector('img').setAttribute("height","40%");
+        }
+        let newh2 = document.createElement('h1');
+        let text = document.createTextNode(search[0].name);
+        let newdes = document.createElement('p');
+        let destext = document.createTextNode(search[0].description);
+        newh2.appendChild(text);
+        place.appendChild(newh2);
+        newdes.appendChild(destext);
+        place.appendChild(newdes);
+        
+        console.log(search);
+        if(search[0].level == '2'){
+            for(i=1;i<search.length;i++){
+                let newname = document.createElement('h3');
+                let newimg = document.createElement('img');
+                let newdes = document.createElement('p');
+                info.querySelector(".info_"+i).appendChild(newname);
+                info.querySelector(".info_"+i).appendChild(newimg);
+                info.querySelector(".info_"+i).appendChild(newdes);
+                info.querySelector(".info_"+i+" p").className = "second";
+    
+                info.querySelector(".info_"+i+" h3").innerText = search[i].name;
+                info.querySelector(".info_"+i+" img").setAttribute("src", search[i].desctiption_image);
+                info.querySelector(".info_"+i+" .second").innerText = search[i].description;
             }
         }
-
+        if(search[0].level == '3'){
+            let count = document.createElement('ul');
+            place.appendChild(count);
+            let li1 = document.createElement('li');
+            let li2 = document.createElement('li');
+            place.querySelector('ul').appendChild(li1);
+            place.querySelector('ul').appendChild(li2);
+            let star = document.createElement('img');
+            place.querySelectorAll("ul li")[0].appendChild(star);
+            place.querySelector("ul li img").setAttribute("src", "./img/star.svg");
+            place.querySelectorAll('ul li')[1].innerText = (search[0].star_rating)+" / 하위항목 : "+(search.length-1);
+            for(i=1;i<search.length;i++){
+                let newname = document.createElement('h3');
+                let newimg = document.createElement('img');
+                let newdes = document.createElement('p');
+                info.querySelector(".info_"+i).appendChild(newname);
+                info.querySelector(".info_"+i).appendChild(newimg);
+                info.querySelector(".info_"+i).appendChild(newdes);
+                info.querySelector(".info_"+i+" p").className = "second";
+    
+                info.querySelector(".info_"+i+" h3").innerText = search[i].name;
+                info.querySelector(".info_"+i+" img").setAttribute("src", search[i].review_image);
+                info.querySelector(".info_"+i+" .second").innerText = search[i].review;
+            }
+        }
+    }
+    else{
+        removedom();
+        let newimg = document.createElement('img');
+        place.appendChild(newimg);
+        place.querySelector('img').setAttribute("src", search[0].review_image);
+        place.querySelector('img').setAttribute("width", "100%");
+        place.querySelector('img').setAttribute("height","40%");
+        place.querySelector('img').setAttribute("alt", search[0].name);
+        let newh2 = document.createElement('h1');
+        let text = document.createTextNode(search[0].name);
+        let newdes = document.createElement('p');
+        let destext = document.createTextNode(search[0].review);
+        newh2.appendChild(text);
+        place.appendChild(newh2);
+        let count = document.createElement('ul');
+        place.appendChild(count);
+        let li1 = document.createElement('li');
+        let li2 = document.createElement('li');
+        place.querySelector('ul').appendChild(li1);
+        place.querySelector('ul').appendChild(li2);
+        let star = document.createElement('img');
+        place.querySelectorAll("ul li")[0].appendChild(star);
+        place.querySelector("ul li img").setAttribute("src", "./img/star.svg");
+        place.querySelectorAll('ul li')[1].innerText = (search[0].star_rating)+"/5";
+        newdes.appendChild(destext);
+        place.appendChild(newdes);
+        document.querySelector('.info').style.visibility = "hidden";
     }
 
-    const place_title = document.querySelector(".place h1");
-    const place_desciption = document.querySelector(".place p");
-    const place_image = document.querySelector(".place img")
-    const cotnent = document.querySelector(".content")
-
-    const info = document.querySelector(".info");
-    const info_1 = document.querySelector(".info .info_1");
-    const info_2 = document.querySelector(".info .info_2");
-    const info_3 = document.querySelector(".info .info_3");
-
-    if (selected[selected.length - 1][0].id == 0){
-        place_title.innerText = "";
-        place_desciption.innerText = "";
-        place_image.style.visibility = "hidden";
-    }else if (search.length > 1){
-        place_title.innerText = search[0].name;
-        place_desciption.innerText = search[0].description;
-        place_image.setAttribute("src", search[0].desctiption_image);
-        place_image.setAttribute("width", "100%");
-        place_image.setAttribute("height","40%");
-        place_image.setAttribute("alt", search[0].name);
-        place_image.style.visibility = "visible";
-        if (search[0].desctiption_image == ''){
-            place_image.style.visibility = "hidden";
-        }
-
-        info_1.querySelector('h3').innerText = search[1].name;
-        info_2.querySelector('h3').innerText = search[2].name;
-        info_3.querySelector('h3').innerText = search[3].name;
-        if(search[0].level == 1){
-            info_1.querySelector('img').style.visibility = "hidden";
-            info_2.querySelector('img').style.visibility = "hidden";
-            info_3.querySelector('img').style.visibility = "hidden";
-            info_1.querySelector('.first').innerText = "";
-            info_2.querySelector('.first').innerText = "";
-            info_3.querySelector('.first').innerText = "";
-            info_1.querySelector('.second').innerText = "";
-            info_2.querySelector('.second').innerText = "";
-            info_3.querySelector('.second').innerText = "";
-            if(search[3].desctiption_image == ''){
-                info_3.querySelector('img').style.visibility = "hidden";
-            }
-
-        }
-        else if(search[0].level == '2'){
-            info_1.querySelector('img').setAttribute("src", search[1].desctiption_image);
-            info_1.querySelector('img').setAttribute("width", "50px");
-            info_1.querySelector('img').setAttribute("height","50px");
-            info_1.querySelector('img').setAttribute("alt", search[1].name);
-            info_1.querySelector('img').style.visibility = "visible";
-            info_1.querySelector('p').innerText = search[1].description;
-
-            info_2.querySelector('img').setAttribute("src", search[2].desctiption_image);
-            info_2.querySelector('img').setAttribute("width", "50px");
-            info_2.querySelector('img').setAttribute("height","50px");
-            info_2.querySelector('img').setAttribute("alt", search[2].name);
-            info_2.querySelector('img').style.visibility = "visible";
-            info_2.querySelector('p').innerText = search[2].description;
-
-            info_3.querySelector('img').setAttribute("src", search[3].desctiption_image);
-            info_3.querySelector('img').setAttribute("width", "50px");
-            info_3.querySelector('img').setAttribute("height","50px");
-            info_3.querySelector('img').setAttribute("alt", search[3].name);
-            info_3.querySelector('img').style.visibility = "visible";
-            info_3.querySelector('p').innerText = search[3].description;
-            if(search[3].desctiption_image == ''){
-                info_3.querySelector('img').style.visibility = "hidden";
-            }
-        }
-        else if(search[0].level == '3'){
-            info_1.querySelector('img').setAttribute("src", search[1].review_image);
-            info_1.querySelector('img').setAttribute("width", "50px");
-            info_1.querySelector('img').setAttribute("height","50px");
-            info_1.querySelector('img').setAttribute("alt", search[1].name);
-            info_1.querySelector('img').style.visibility = "visible";
-            info_1.querySelector('.first').innerText = search[1].star_rating;
-            info_1.querySelector('.second').innerText = search[1].review;
-
-            info_2.querySelector('img').setAttribute("src", search[2].review_image);
-            info_2.querySelector('img').setAttribute("width", "50px");
-            info_2.querySelector('img').setAttribute("height","50px");
-            info_2.querySelector('img').setAttribute("alt", search[2].name);
-            info_2.querySelector('img').style.visibility = "visible";
-            info_2.querySelector('.first').innerText= search[2].star_rating;
-            info_2.querySelector('.second').innerText = search[2].review;
-
-            info_3.querySelector('img').setAttribute("src", search[3].review_image);
-            info_3.querySelector('img').setAttribute("width", "50px");
-            info_3.querySelector('img').setAttribute("height","50px");
-            info_3.querySelector('img').setAttribute("alt", search[3].name);
-            info_3.querySelector('img').style.visibility = "visible";
-            info_3.querySelector('.first').innerText = search[3].star_rating;
-            info_3.querySelector('.second').innerText = search[3].review;
-            if(search[3].review_image == ''){
-                info_3.querySelector('img').style.visibility = "hidden";
-            }
-        }
-        else if(search[0].level == '4'){
-            place_title.innerText = search[0].name;
-            place_desciption.innerText = search[0].review;
-            place_image.setAttribute("src", search[0].review_image);
-            place_image.setAttribute("width", "100%");
-            place_image.setAttribute("height","40%");
-            place_image.setAttribute("alt", search[0].name);
-            place_image.style.visibility = "visible";
-
-            info_1.querySelector('img').style.visibility = "hidden";
-            info_2.querySelector('img').style.visibility = "hidden";
-            info_3.querySelector('img').style.visibility = "hidden";
-            info_1.querySelector('.first').innerText = "";
-            info_2.querySelector('.first').innerText = "";
-            info_3.querySelector('.first').innerText = "";
-            info_1.querySelector('.second').innerText = "";
-            info_2.querySelector('.second').innerText = "";
-            info_3.querySelector('.second').innerText = "";
-            if(search[3].desctiption_image == ''){
-                info_3.querySelector('img').style.visibility = "hidden";
-            }
-        }
-
-
-    }else{
-
-    }
     });
 
 });
