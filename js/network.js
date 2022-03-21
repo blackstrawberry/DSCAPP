@@ -154,12 +154,13 @@ return response.json();
         const text = document.querySelector('.child .child3').innerText;
         searchmachine(text);
     });
-
+    document.querySelector('.child').style = "display:none;";
     function removedom() {
         const place = document.querySelector(".place");
         const info_1 = document.querySelector(".info .info_1");
         const info_2 = document.querySelector(".info .info_2");
         const info_3 = document.querySelector(".info .info_3");
+        document.querySelector('.child').style = "display:none;";
         document.querySelector('.child .child1').innerText = '';
         document.querySelector('.child .child2').innerText = '';
         document.querySelector('.child .child3').innerText = '';
@@ -191,6 +192,9 @@ return response.json();
         }
         else if(search[0].level == '1'){
             removedom();
+            document.querySelector('.child').style = "display:flex;";
+
+
             document.querySelector('.info').style.visibility = "hidden";
             let newimg = document.createElement('img');
             place.appendChild(newimg);
