@@ -99,151 +99,61 @@ return response.json();
                 }
             }
         }
-        // console.log(selected);
-        // console.log(search);
         showsidebar();
-        
-        // const searchForm = document.querySelector('.serch_area');
-        // const getinput = document.querySelector('.serch_area input');
-        
-        // function handleInput(event) {
-        //     event.preventDefault();
-        //     const newSearch = getinput.value;
-        //     getinput.value = "";
-        //     selected = [];
-        //     search = [];
-        //     let temp = 0;
-        //     for(i=0;i<mydata.length;i++){
-        //         if(newSearch === mydata[i].name){
-        //             search.push(mydata[i]);
-        //             temp = mydata[i].id;
-        //         }
-        //     }        
-        //     for(i=0;i<mydata.length;i++){
-        //         if(temp === mydata[i].from){
-        //             search.push(mydata[i]);
-        //         }
-        //     }
-        //     if(temp == 0){
-        //         selected = [];
-        //         selected.push([{"id":0,"label":"0"}]);
-        //     }
-        //     console.log(search);
-        //     showsidebar();
-        // }
-        // searchForm.addEventListener("submit", handleInput);
-
     });
 
     const searchForm = document.querySelector('.serch_area');
     const getinput = document.querySelector('.serch_area input');
-    
+    function searchmachine(text){
+        let temp = 0;
+        for(i=0;i<mydata.length;i++){
+            if(text === mydata[i].name){
+                search.push(mydata[i]);
+                selected.push([{"id": mydata[i].id, "label": mydata[i].name}]);
+                temp = mydata[i].id;
+            }
+        }        
+        for(i=0;i<mydata.length;i++){
+            if(temp === mydata[i].from){
+                search.push(mydata[i]);
+            }
+        }
+        if(temp == 0){
+            selected = [];
+            selected.push([{"id":0,"label":"0"}]);
+        }
+        showsidebar();
+    }
+
     function handleInput(event) {
         event.preventDefault();
         const newSearch = getinput.value;
         getinput.value = "";
         selected = [];
         search = [];
-        let temp = 0;
-        for(i=0;i<mydata.length;i++){
-            if(newSearch === mydata[i].name){
-                search.push(mydata[i]);
-                selected.push([{"id": mydata[i].id, "label": mydata[i].name}]);
-                temp = mydata[i].id;
-            }
-        }        
-        for(i=0;i<mydata.length;i++){
-            if(temp === mydata[i].from){
-                search.push(mydata[i]);
-            }
-        }
-        if(temp == 0){
-            selected = [];
-            selected.push([{"id":0,"label":"0"}]);
-        }
-        console.log("search : ",search);
-        console.log("selected : ",selected);
-        showsidebar();
+        
+        searchmachine(newSearch);
     }
     searchForm.addEventListener("submit", handleInput);
 
     $('.child1').on("click", function() {
         selected = [];
         search = [];
-        let temp = 0;
         const text = document.querySelector('.child .child1').innerText;
-        for(i=0;i<mydata.length;i++){
-            if(text === mydata[i].name){
-                search.push(mydata[i]);
-                selected.push([{"id": mydata[i].id, "label": mydata[i].name}]);
-                temp = mydata[i].id;
-            }
-        }        
-        for(i=0;i<mydata.length;i++){
-            if(temp === mydata[i].from){
-                search.push(mydata[i]);
-            }
-        }
-        if(temp == 0){
-            selected = [];
-            selected.push([{"id":0,"label":"0"}]);
-        }
-        console.log("search : ",search);
-        console.log("selected : ",selected);
-        showsidebar();
+        searchmachine(text);
     });
     $('.child2').on("click", function() {
         selected = [];
         search = [];
-        let temp = 0;
         const text = document.querySelector('.child .child2').innerText;
-        for(i=0;i<mydata.length;i++){
-            if(text === mydata[i].name){
-                search.push(mydata[i]);
-                selected.push([{"id": mydata[i].id, "label": mydata[i].name}]);
-                temp = mydata[i].id;
-            }
-        }        
-        for(i=0;i<mydata.length;i++){
-            if(temp === mydata[i].from){
-                search.push(mydata[i]);
-            }
-        }
-        if(temp == 0){
-            selected = [];
-            selected.push([{"id":0,"label":"0"}]);
-        }
-        console.log("search : ",search);
-        console.log("selected : ",selected);
-        showsidebar();
+        searchmachine(text);
     });
     $('.child3').on("click", function() {
         selected = [];
         search = [];
-        let temp = 0;
         const text = document.querySelector('.child .child3').innerText;
-        for(i=0;i<mydata.length;i++){
-            if(text === mydata[i].name){
-                search.push(mydata[i]);
-                selected.push([{"id": mydata[i].id, "label": mydata[i].name}]);
-                temp = mydata[i].id;
-            }
-        }        
-        for(i=0;i<mydata.length;i++){
-            if(temp === mydata[i].from){
-                search.push(mydata[i]);
-            }
-        }
-        if(temp == 0){
-            selected = [];
-            selected.push([{"id":0,"label":"0"}]);
-        }
-        console.log("search : ",search);
-        console.log("selected : ",selected);
-        showsidebar();
+        searchmachine(text);
     });
-
-
 
     function removedom() {
         const place = document.querySelector(".place");
@@ -306,10 +216,6 @@ return response.json();
             for(i=1;i<search.length;i++){
                 let text = document.createTextNode(search[i].name);
                 document.querySelector('.child'+i).appendChild(text);
-                // let newh2 = document.createElement('h2');
-                // let text = document.createTextNode(search[i].name);
-                // newh2.appendChild(text);
-                // place.appendChild(newh2);
             }
         }
         else if(search[0].level == '2' || search[0].level == '3'){
