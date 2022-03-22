@@ -162,7 +162,7 @@ return response.json();
         let name = modalname.value;
         let src = modalsrc.value;
         let review = modalreview.value;
-        let star = modalstar.options[modalplace.selectedIndex].value;
+        let star = modalstar.options[modalstar.selectedIndex].value;
         modalname.value = "";
         modalsrc.value = "";
         modalreview.value = "";
