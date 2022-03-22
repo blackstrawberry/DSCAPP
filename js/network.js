@@ -291,7 +291,6 @@ return response.json();
             let li = document.createElement('li');
             place.querySelector('ul').appendChild(li);
             place.querySelector('ul li').innerText = "하위항목 : "+(search.length-1);
-            const child = document.querySelector('.child');
             for(i=1;i<search.length;i++){
                 let text = document.createTextNode(search[i].name);
                 document.querySelector('.child'+i).appendChild(text);
@@ -325,8 +324,8 @@ return response.json();
                     let newname = document.createElement('h3');
                     let newimg = document.createElement('img');
                     let newdes = document.createElement('p');
-                    info.querySelector(".info_"+i).appendChild(newname);
                     info.querySelector(".info_"+i).appendChild(newimg);
+                    info.querySelector(".info_"+i).appendChild(newname);
                     info.querySelector(".info_"+i).appendChild(newdes);
                     info.querySelector(".info_"+i+" p").className = "second";
         
@@ -354,9 +353,22 @@ return response.json();
                     let newname = document.createElement('h3');
                     let newimg = document.createElement('img');
                     let newdes = document.createElement('p');
-                    
-                    info.querySelector(".info_"+i).appendChild(newname);
+
                     info.querySelector(".info_"+i).appendChild(newimg);
+                    info.querySelector(".info_"+i).appendChild(newname);
+
+                    let count = document.createElement('ul');
+                    info.querySelector(".info_"+i).appendChild(count);
+                    let li1 = document.createElement('li');
+                    let li2 = document.createElement('li');
+                    info.querySelector(".info_"+i).querySelector('ul').appendChild(li1);
+                    info.querySelector(".info_"+i).querySelector('ul').appendChild(li2);
+                    let star = document.createElement('img');
+                    info.querySelector(".info_"+i).querySelectorAll("ul li")[0].appendChild(star);
+                    info.querySelector(".info_"+i).querySelector("ul li img").setAttribute("src", "./img/star.svg");
+                    info.querySelector(".info_"+i).querySelectorAll('ul li')[1].innerText = (search[i].star_rating)+"/5";
+
+
                     info.querySelector(".info_"+i).appendChild(newdes);
                     info.querySelector(".info_"+i+" p").className = "second";
         
