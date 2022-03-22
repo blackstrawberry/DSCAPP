@@ -13,36 +13,36 @@
     },
     {
       "id": 2,
-      "name": "포토존",
+      "name": "추억 저장 포토존",
       "level": 2,
       "from": 1,
       "to": 2,
       "description": "하위의 항목을 선택하여 포토존을 찾아보세요.",
-      "desctiption_image": "",
+      "desctiption_image": "https://s3.eu-west-1.amazonaws.com/prod.news.product.which.co.uk/news/wp-content/uploads/2021/10/Digital-cameras_Lead.jpg",
       "star_rating": "",
       "review_image": "",
       "review": ""
     },
     {
       "id": 3,
-      "name": "데이트",
+      "name": "연인과의 데이트 코스",
       "level": 2,
       "from": 1,
       "to": 3,
       "description": "하위의 항목을 선택하여 데이트 장소를 찾아보세요.",
-      "desctiption_image": "",
+      "desctiption_image": "https://cdn2.momjunction.com/wp-content/uploads/2019/03/55-Romantic-Date-Ideas-For-Couples-1-910x1024.jpg",
       "star_rating": "",
       "review_image": "",
       "review": ""
     },
     {
       "id": 4,
-      "name": "아이와나들이",
+      "name": "아이와 나들이",
       "level": 2,
       "from": 1,
       "to": 4,
       "description": "하위의 항목을 선택하여 데이트 장소를 찾아보세요.",
-      "desctiption_image": "",
+      "desctiption_image": "https://www.bettycrocker.com/-/media/Images/BC/content/menus-holidays-parties/parties-and-get-togethers/modern-picnic-ideas/Modern-Picnics.jpg",
       "star_rating": "",
       "review_image": "",
       "review": ""
@@ -61,7 +61,7 @@
     },
     {
       "id": 6,
-      "name": "Amy",
+      "name": "서아",
       "level": 4,
       "from": 5,
       "to": 6,
@@ -73,7 +73,7 @@
     },
     {
       "id": 7,
-      "name": "Irene",
+      "name": "하윤",
       "level": 4,
       "from": 5,
       "to": 7,
@@ -85,7 +85,7 @@
     },
     {
       "id": 8,
-      "name": "Juiper",
+      "name": "이서",
       "level": 4,
       "from": 5,
       "to": 8,
@@ -109,7 +109,7 @@
     },
     {
       "id": 10,
-      "name": "Nana",
+      "name": "지아",
       "level": 4,
       "from": 9,
       "to": 10,
@@ -121,7 +121,7 @@
     },
     {
       "id": 11,
-      "name": "bear",
+      "name": "하율",
       "level": 4,
       "from": 9,
       "to": 11,
@@ -133,7 +133,7 @@
     },
     {
       "id": 12,
-      "name": "June",
+      "name": "지안",
       "level": 4,
       "from": 9,
       "to": 12,
@@ -157,7 +157,7 @@
     },
     {
       "id": 14,
-      "name": "Nixie",
+      "name": "서윤",
       "level": 4,
       "from": 13,
       "to": 14,
@@ -169,7 +169,7 @@
     },
     {
       "id": 15,
-      "name": "Rihanna",
+      "name": "아윤",
       "level": 4,
       "from": 13,
       "to": 15,
@@ -181,7 +181,7 @@
     },
     {
       "id": 16,
-      "name": "Sofia",
+      "name": "아린",
       "level": 4,
       "from": 13,
       "to": 16,
@@ -205,7 +205,7 @@
     },
     {
       "id": 18,
-      "name": "Sarah",
+      "name": "아린",
       "level": 4,
       "from": 17,
       "to": 18,
@@ -217,7 +217,7 @@
     },
     {
       "id": 19,
-      "name": "Scarlett",
+      "name": "하은",
       "level": 4,
       "from": 17,
       "to": 19,
@@ -229,7 +229,7 @@
     },
     {
       "id": 20,
-      "name": "Yasmin",
+      "name": "서연",
       "level": 4,
       "from": 17,
       "to": 20,
@@ -253,7 +253,7 @@
     },
     {
       "id": 22,
-      "name": "Zuri",
+      "name": "하린",
       "level": 4,
       "from": 21,
       "to": 22,
@@ -265,7 +265,7 @@
     },
     {
       "id": 23,
-      "name": "Ruth",
+      "name": "시아",
       "level": 4,
       "from": 21,
       "to": 23,
@@ -277,7 +277,7 @@
     },
     {
       "id": 24,
-      "name": "Maci",
+      "name": "지우",
       "level": 4,
       "from": 21,
       "to": 24,
@@ -301,7 +301,7 @@
     },
     {
       "id": 26,
-      "name": "Monica",
+      "name": "나은",
       "level": 4,
       "from": 25,
       "to": 26,
@@ -313,7 +313,7 @@
     },
     {
       "id": 27,
-      "name": "Moana",
+      "name": "수아",
       "level": 4,
       "from": 25,
       "to": 27,
@@ -325,7 +325,7 @@
     },
     {
       "id": 28,
-      "name": "Janice",
+      "name": "서하",
       "level": 4,
       "from": 25,
       "to": 28,
@@ -349,7 +349,7 @@
     },
     {
       "id": 30,
-      "name": "Joy",
+      "name": "서우",
       "level": 4,
       "from": 29,
       "to": 30,
@@ -361,7 +361,7 @@
     },
     {
       "id": 31,
-      "name": "Kimberly",
+      "name": "지유",
       "level": 4,
       "from": 29,
       "to": 31,
@@ -373,7 +373,7 @@
     },
     {
       "id": 32,
-      "name": "Kali",
+      "name": "유나",
       "level": 4,
       "from": 29,
       "to": 32,

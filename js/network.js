@@ -11,11 +11,18 @@ return response.json();
     const set_edges = [];
 
     for(i=0;i<mydata.length;i++){
-        if (mydata[i].desctiption_image == ''){
-            set_nodes.push({"id":mydata[i].id,"label":mydata[i].name, "shape": "circularImage", "image": mydata[i].review_image});
+        if (mydata[i].level == '1'){
+            set_nodes.push({"id":mydata[i].id,"label":mydata[i].name, "shape": "circularImage", "size": 50, "image": mydata[i].desctiption_image, "group": 0});
         }
-        else{
-            set_nodes.push({"id":mydata[i].id,"label":mydata[i].name, "shape": "circularImage", "image": mydata[i].desctiption_image});
+        else if (mydata[i].level == '2'){
+            set_nodes.push({"id":mydata[i].id,"label":mydata[i].name, "shape": "circularImage", "size": 40, "image": mydata[i].desctiption_image, "group": 1});
+
+        }
+        else if (mydata[i].level == '3'){
+            set_nodes.push({"id":mydata[i].id,"label":mydata[i].name, "shape": "circularImage", "size": 30, "image": mydata[i].desctiption_image, "group": 2});
+        }
+        else if (mydata[i].level == '4'){
+            set_nodes.push({"id":mydata[i].id,"label":mydata[i].name, "shape": "circularImage", "size": 25, "image": mydata[i].review_image, "group": 3});
         }
         set_edges.push({"from":mydata[i].from,"to":mydata[i].to});
     }
@@ -33,12 +40,13 @@ return response.json();
     let options = {
         clickToUse: true,
         nodes:{
+            borderWidth: 8,
             color:{
                 border:'#fff',
                 background:'#fff',
                 highlight: {
                 border: '#ff5234',
-                background: '#ff5234'
+                background: '#ff5234',
                 },
                 hover: {
                 border: '#000',
@@ -231,12 +239,7 @@ return response.json();
             place.querySelector('img').setAttribute("alt", search[0].name);
             place.querySelector('img').setAttribute("width", "100%");
             place.querySelector('img').setAttribute("height","40%");
-            if(search[0].desctiption_image==""){
-                place.querySelector('img').setAttribute("src", search[1].desctiption_image);
-                place.querySelector('img').setAttribute("alt", search[1].name);
-                place.querySelector('img').setAttribute("width", "100%");
-                place.querySelector('img').setAttribute("height","40%");
-            }
+
             let newh2 = document.createElement('h1');
             let text = document.createTextNode(search[0].name);
             let newdes = document.createElement('p');
