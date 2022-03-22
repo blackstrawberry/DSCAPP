@@ -13,9 +13,6 @@ return response.json();
     //탐색창 초기화
     function removedom() {
         const place = document.querySelector(".place");
-        // const info_1 = document.querySelector(".info .info_1");
-        // const info_2 = document.querySelector(".info .info_2");
-        // const info_3 = document.querySelector(".info .info_3");
         const info = document.querySelector('.info');
 
         document.querySelector('.child').style = "display:none;";
@@ -29,16 +26,6 @@ return response.json();
         while ( info.hasChildNodes() ) { 
             info.removeChild( info.firstChild ); 
         }
-
-        // while ( info_1.hasChildNodes() ) { 
-        //     info_1.removeChild( info_1.firstChild ); 
-        // }
-        // while ( info_2.hasChildNodes() ) { 
-        //     info_2.removeChild( info_2.firstChild ); 
-        // }
-        // while ( info_3.hasChildNodes() ) { 
-        //     info_3.removeChild( info_3.firstChild ); 
-        // }
     }
 
     //vis js
@@ -230,6 +217,7 @@ return response.json();
         if(temp == 0){
             selected = [];
             selected.push([{"id":0,"label":"0"}]);
+            alert("입력한 정보를 찾을 수 없습니다.");
         }
         showsidebar();
     }
