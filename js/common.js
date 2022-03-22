@@ -9,11 +9,11 @@ $('header').load('inc.html header > div', function(){
             head.classList.toggle('toggle');
             bgFix.classList.toggle('toggle');
         });
-        mynetwork.addEventListener('click', ()=> { 
-            burger.classList.add('toggle');
-            head.classList.add('toggle');
-            bgFix.classList.add('toggle');
-        });
+        // mynetwork.addEventListener('click', ()=> { 
+        //     burger.classList.add('toggle');
+        //     head.classList.add('toggle');
+        //     bgFix.classList.add('toggle');
+        // });
 
     };
     button();

@@ -112,6 +112,15 @@ return response.json();
         document.querySelector('.child').style = "display:none;";
         
         network.on( 'click', function(properties) {
+            const burger = document.querySelector('.burger');
+            const head = document.querySelector('.head');
+            const bgFix = document.querySelector('.bg_fix');
+            mynetwork.addEventListener('click', ()=> { 
+                burger.classList.add('toggle');
+                head.classList.add('toggle');
+                bgFix.classList.add('toggle');
+            });
+
             let ids = properties.nodes;
             let clickedNodes = nodes.get(ids);
             
@@ -290,7 +299,7 @@ return response.json();
             place.appendChild(count);
             let li = document.createElement('li');
             place.querySelector('ul').appendChild(li);
-            place.querySelector('ul li').innerText = "하위항목 : "+(search.length-1);
+            place.querySelector('ul li').innerText = "여행테마 : "+(search.length-1);
             for(i=1;i<search.length;i++){
                 let text = document.createTextNode(search[i].name);
                 document.querySelector('.child'+i).appendChild(text);
@@ -317,6 +326,12 @@ return response.json();
             
             if(search[0].level == '2'){
                 for(i=1;i<search.length;i++){
+                    let count1 = document.createElement('ul');
+                    place.appendChild(count1);
+                    let li = document.createElement('li');
+                    place.querySelector('ul').appendChild(li);
+                    place.querySelector('ul li').innerText = "추천장소 : "+(search.length-1);
+
                     let newinfo = document.createElement('div');
                     info.appendChild(newinfo);
                     document.querySelectorAll(".info div")[i-1].className = "info_"+i;
@@ -356,7 +371,7 @@ return response.json();
                 let star = document.createElement('img');
                 place.querySelectorAll("ul li")[0].appendChild(star);
                 place.querySelector("ul li img").setAttribute("src", "./img/star.svg");
-                place.querySelectorAll('ul li')[1].innerText = (search[0].star_rating)+" / 하위항목 : "+(search.length-1);
+                place.querySelectorAll('ul li')[1].innerText = (search[0].star_rating)+" / 리뷰 수 : "+(search.length-1);
                 for(i=1;i<search.length;i++){
                     let newinfo = document.createElement('div');
                     info.appendChild(newinfo);
