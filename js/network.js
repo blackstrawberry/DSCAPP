@@ -326,6 +326,18 @@ return response.json();
                     let newdes = document.createElement('p');
                     info.querySelector(".info_"+i).appendChild(newimg);
                     info.querySelector(".info_"+i).appendChild(newname);
+
+                    let count = document.createElement('ul');
+                    info.querySelector(".info_"+i).appendChild(count);
+                    let li1 = document.createElement('li');
+                    let li2 = document.createElement('li');
+                    info.querySelector(".info_"+i).querySelector('ul').appendChild(li1);
+                    info.querySelector(".info_"+i).querySelector('ul').appendChild(li2);
+                    let star = document.createElement('img');
+                    info.querySelector(".info_"+i).querySelectorAll("ul li")[0].appendChild(star);
+                    info.querySelector(".info_"+i).querySelector("ul li img").setAttribute("src", "./img/star.svg");
+                    info.querySelector(".info_"+i).querySelectorAll('ul li')[1].innerText = (search[i].star_rating)+"/5";
+
                     info.querySelector(".info_"+i).appendChild(newdes);
                     info.querySelector(".info_"+i+" p").className = "second";
         
