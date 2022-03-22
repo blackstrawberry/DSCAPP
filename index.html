@@ -23,10 +23,42 @@
     <header><div class="head"></div></header>
     <main></main>
     <footer><div></div></footer>
-
-    <script>
-        
-    </script>
+    <div id="modal" class="modal-overlay">
+        <div class="modal-window">
+            <div class="title">
+                <h2>모달</h2>
+            </div>
+            <div class="close-area">X</div>
+            <div class="content">
+                <form class="modal-form">
+                    <p>장소 선택
+                        <select class="modal-select" autofocus>
+                            <option type="text" value="공산성">공산성</option>
+                            <option type="text" value="더크루즈">더크루즈</option>
+                            <option type="text" value="베이커리 밤마을">베이커리 밤마을</option>
+                            <option type="text" value="에어산">에어산</option>
+                            <option type="text" value="엔학고래">엔학고래</option>
+                            <option type="text" value="연미산자연미술공원">연미산자연미술공원</option>
+                            <option type="text" value="유구 색동수국정원">유규 색동수국정원</option>
+                        </select>
+                    </p>
+                    <p>별점
+                        <select class="modal-star" autofocus>
+                            <option type="text" value="5">5</option>
+                            <option type="text" value="4">4</option>
+                            <option type="text" value="3">3</option>
+                            <option type="text" value="2">2</option>
+                            <option type="text" value="1">1</option>
+                        </select>
+                    </p>
+                    <p>닉네임<input class="modal-name" type="text" placeholder="닉네임을 입력해 주세요." required/></p>
+                    <p>이미지 링크<input class="modal-src" type="text" placeholder="이미지 링크를 입력해주세요." required/></p>
+                    <p>리뷰<input class="modal-review" type="text" placeholder="리뷰를 입력해주세요." required/></p>
+                    <button>리뷰 추가하기</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </body>
 <script defer type="text/javascript" src="js/network.js"></script>
 </html>

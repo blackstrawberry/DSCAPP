@@ -1,4 +1,5 @@
 const mydata = [];
+let idnum = 33;
 fetch("./js/gongju.json").then(response => {
 return response.json();
 }).then((json) => {
@@ -6,110 +7,210 @@ return response.json();
     for(i=0;i<json.data.length;i++){
         mydata.push(json.data[i]);
     }
-
-    const set_nodes = [];
-    const set_edges = [];
-
-    for(i=0;i<mydata.length;i++){
-        if (mydata[i].level == '1'){
-            set_nodes.push({"id":mydata[i].id,"label":mydata[i].name, "shape": "circularImage", "size": 50, "image": mydata[i].desctiption_image, "group": 0});
-        }
-        else if (mydata[i].level == '2'){
-            set_nodes.push({"id":mydata[i].id,"label":mydata[i].name, "shape": "circularImage", "size": 40, "image": mydata[i].desctiption_image, "group": 1});
-
-        }
-        else if (mydata[i].level == '3'){
-            set_nodes.push({"id":mydata[i].id,"label":mydata[i].name, "shape": "circularImage", "size": 30, "image": mydata[i].desctiption_image, "group": 2});
-        }
-        else if (mydata[i].level == '4'){
-            set_nodes.push({"id":mydata[i].id,"label":mydata[i].name, "shape": "circularImage", "size": 25, "image": mydata[i].review_image, "group": 3});
-        }
-        set_edges.push({"from":mydata[i].from,"to":mydata[i].to});
-    }
-    let nodes = new vis.DataSet(set_nodes);
-    let edges = new vis.DataSet(set_edges);
-
-    // create a network
-    let container = document.getElementById('mynetwork');
-
-    // provide the data in the vis format
-    let data = {
-        nodes: nodes,
-        edges: edges
-    };
-    let options = {
-        clickToUse: true,
-        nodes:{
-            borderWidth: 8,
-            color:{
-                border:'#fff',
-                background:'#fff',
-                highlight: {
-                border: '#ff5234',
-                background: '#ff5234',
-                },
-                hover: {
-                border: '#000',
-                background: '#000'
-                },
-            },
-            font: {
-                color: '#ffffff',
-                size: 18, // px
-                face: 'arial',
-                background: 'none',
-                strokeWidth: 0, // px
-                strokeColor: '#ffffff',
-                align: 'center',
-                multi: false,
-                vadjust: 0,
-                bold: {
-                    color: '#fff',
-                    size: 18, // px
-                    face: 'arial',
-                    vadjust: 0,
-                    mod: 'bold'
-                },
-            }
-        },
-        
-        edges:{
-            color: '#ff5234',
-            font: '1px arial #ff0000',
-            scaling:{
-              label: true,
-            },
-            shadow: false,
-            smooth: true,
-        },
-    };
-
-    // initialize your network!
-    let network = new vis.Network(container, data, options);
     let selected = [];
     let search = [];
-    
-    network.on( 'click', function(properties) {
-        let ids = properties.nodes;
-        let clickedNodes = nodes.get(ids);
-        
-        if (clickedNodes[0] == undefined) {
-            selected.push([{"id":0,"label":"0"}]);
-            search = []
+
+    //탐색창 초기화
+    function removedom() {
+        const place = document.querySelector(".place");
+        // const info_1 = document.querySelector(".info .info_1");
+        // const info_2 = document.querySelector(".info .info_2");
+        // const info_3 = document.querySelector(".info .info_3");
+        const info = document.querySelector('.info');
+
+        document.querySelector('.child').style = "display:none;";
+        document.querySelector('.child .child1').innerText = '';
+        document.querySelector('.child .child2').innerText = '';
+        document.querySelector('.child .child3').innerText = '';
+
+        while ( place.hasChildNodes() ) { 
+            place.removeChild( place.firstChild ); 
         }
-        else{
-            selected = [];
-            selected.push(clickedNodes);
-            search = [];
-            for(i=0;i<mydata.length;i++){
-                if(selected[selected.length - 1][0].id===mydata[i].id || selected[selected.length - 1][0].id===mydata[i].from){
-                    search.push(mydata[i]);
+        while ( info.hasChildNodes() ) { 
+            info.removeChild( info.firstChild ); 
+        }
+
+        // while ( info_1.hasChildNodes() ) { 
+        //     info_1.removeChild( info_1.firstChild ); 
+        // }
+        // while ( info_2.hasChildNodes() ) { 
+        //     info_2.removeChild( info_2.firstChild ); 
+        // }
+        // while ( info_3.hasChildNodes() ) { 
+        //     info_3.removeChild( info_3.firstChild ); 
+        // }
+    }
+
+    //vis js
+    function startvis (){
+        let set_nodes = [];
+        let set_edges = [];
+    
+        for(i=0;i<mydata.length;i++){
+            if (mydata[i].level == '1'){
+                set_nodes.push({"id":mydata[i].id,"label":mydata[i].name, "shape": "circularImage", "size": 50, "image": mydata[i].desctiption_image, "group": 0});
+            }
+            else if (mydata[i].level == '2'){
+                set_nodes.push({"id":mydata[i].id,"label":mydata[i].name, "shape": "circularImage", "size": 40, "image": mydata[i].desctiption_image, "group": 1});
+    
+            }
+            else if (mydata[i].level == '3'){
+                set_nodes.push({"id":mydata[i].id,"label":mydata[i].name, "shape": "circularImage", "size": 30, "image": mydata[i].desctiption_image, "group": 2});
+            }
+            else if (mydata[i].level == '4'){
+                set_nodes.push({"id":mydata[i].id,"label":mydata[i].name, "shape": "circularImage", "size": 25, "image": mydata[i].review_image, "group": 3});
+            }
+            set_edges.push({"from":mydata[i].from,"to":mydata[i].to});
+        }
+        let nodes = new vis.DataSet(set_nodes);
+        let edges = new vis.DataSet(set_edges);
+    
+        // create a network
+        let container = document.getElementById('mynetwork');
+    
+        // provide the data in the vis format
+        let data = {
+            nodes: nodes,
+            edges: edges
+        };
+        let options = {
+            clickToUse: true,
+            nodes:{
+                borderWidth: 8,
+                color:{
+                    border:'#fff',
+                    background:'#fff',
+                    highlight: {
+                    border: '#ff5234',
+                    background: '#ff5234',
+                    },
+                    hover: {
+                    border: '#000',
+                    background: '#000'
+                    },
+                },
+                font: {
+                    color: '#ffffff',
+                    size: 18, // px
+                    face: 'arial',
+                    background: 'none',
+                    strokeWidth: 0, // px
+                    strokeColor: '#ffffff',
+                    align: 'center',
+                    multi: false,
+                    vadjust: 0,
+                    bold: {
+                        color: '#fff',
+                        size: 18, // px
+                        face: 'arial',
+                        vadjust: 0,
+                        mod: 'bold'
+                    },
+                }
+            },
+            
+            edges:{
+                color: '#ff5234',
+                font: '1px arial #ff0000',
+                scaling:{
+                  label: true,
+                },
+                shadow: false,
+                smooth: true,
+            },
+        };
+    
+        // initialize your network!
+        let network = new vis.Network(container, data, options);
+        document.querySelector('.child').style = "display:none;";
+        
+        network.on( 'click', function(properties) {
+            let ids = properties.nodes;
+            let clickedNodes = nodes.get(ids);
+            
+            if (clickedNodes[0] == undefined) {
+                selected.push([{"id":0,"label":"0"}]);
+                search = []
+            }
+            else{
+                selected = [];
+                selected.push(clickedNodes);
+                search = [];
+                for(i=0;i<mydata.length;i++){
+                    if(selected[selected.length - 1][0].id===mydata[i].id || selected[selected.length - 1][0].id===mydata[i].from){
+                        search.push(mydata[i]);
+                    }
                 }
             }
-        }
-        showsidebar();
+            showsidebar();
+        });
+    }
+    startvis();
+    
+    // 모달창
+    const modal = document.querySelector("#modal");
+    const startModal = document.querySelector('.modal-button');
+    const modalForm = document.querySelector('.modal-form');
+    let modalplace = document.querySelector('.modal-select');
+    let modalname = document.querySelector('.modal-name');
+    let modalsrc = document.querySelector('.modal-src');
+    let modalreview = document.querySelector('.modal-review');
+    let modalstar = document.querySelector('.modal-star');
+    startModal.addEventListener("click", e => {
+        modal.style.display = "flex"
     });
+    const closeBtn = modal.querySelector(".close-area")
+    closeBtn.addEventListener("click", e => {
+        modal.style.display = "none"
+    });
+    modal.addEventListener("click", e => {
+        const evTarget = e.target
+        if(evTarget.classList.contains("modal-overlay")) {
+            modal.style.display = "none"
+        }
+    });
+    function modalInput(event) {
+        event.preventDefault();
+        let place = modalplace.options[modalplace.selectedIndex].value;
+        let name = modalname.value;
+        let src = modalsrc.value;
+        let review = modalreview.value;
+        let star = modalstar.options[modalplace.selectedIndex].value;
+        modalname.value = "";
+        modalsrc.value = "";
+        modalreview.value = "";
+        let pushitem = [];
+        if(place == "공산성"){
+            pushitem = {"id": idnum, "name": name, "level": 4, "from": 9,"to": idnum,"description": "","desctiption_image": "", "star_rating": star, "review_image": src,"review": review};
+        }
+        else if(place == "더크루즈"){
+            pushitem = {"id": idnum, "name": name, "level": 4, "from": 21,"to": idnum,"description": "","desctiption_image": "", "star_rating": star, "review_image": src,"review": review};
+        }
+        else if(place == "베이커리 밤마을"){
+            pushitem = {"id": idnum, "name": name, "level": 4, "from": 29,"to": idnum,"description": "","desctiption_image": "", "star_rating": star, "review_image": src,"review": review};
+        }
+        else if(place == "에어산"){
+            pushitem = {"id": idnum, "name": name, "level": 4, "from": 13,"to": idnum,"description": "","desctiption_image": "", "star_rating": star, "review_image": src,"review": review};
+        }
+        else if(place == "엔학고래"){
+            pushitem = {"id": idnum, "name": name, "level": 4, "from": 5,"to": idnum,"description": "","desctiption_image": "", "star_rating": star, "review_image": src,"review": review};
+        }
+        else if(place == "연미산자연미술공원"){
+            pushitem = {"id": idnum, "name": name, "level": 4, "from": 17,"to": idnum,"description": "","desctiption_image": "", "star_rating": star, "review_image": src,"review": review};
+        }
+        else if(place == "유구 색동수국정원"){
+            pushitem = {"id": idnum, "name": name, "level": 4, "from": 25,"to": idnum,"description": "","desctiption_image": "", "star_rating": star, "review_image": src,"review": review};
+        }
+        console.log(pushitem);
+        mydata.push(pushitem);
+        idnum = idnum+1;
+        startvis();
+        modal.style.display = "none";
+        console.log(mydata);
+    }
+    modalForm.addEventListener("submit", modalInput);
 
+    //탐색창&검색기능
     const searchForm = document.querySelector('.serch_area');
     const getinput = document.querySelector('.serch_area input');
     function searchmachine(text){
@@ -163,30 +264,8 @@ return response.json();
         searchmachine(text);
     });
     document.querySelector('.child').style = "display:none;";
-    function removedom() {
-        const place = document.querySelector(".place");
-        const info_1 = document.querySelector(".info .info_1");
-        const info_2 = document.querySelector(".info .info_2");
-        const info_3 = document.querySelector(".info .info_3");
-        document.querySelector('.child').style = "display:none;";
-        document.querySelector('.child .child1').innerText = '';
-        document.querySelector('.child .child2').innerText = '';
-        document.querySelector('.child .child3').innerText = '';
-
-        while ( place.hasChildNodes() ) { 
-            place.removeChild( place.firstChild ); 
-        }
-        while ( info_1.hasChildNodes() ) { 
-            info_1.removeChild( info_1.firstChild ); 
-        }
-        while ( info_2.hasChildNodes() ) { 
-            info_2.removeChild( info_2.firstChild ); 
-        }
-        while ( info_3.hasChildNodes() ) { 
-            info_3.removeChild( info_3.firstChild ); 
-        }
-    }
-
+    
+    //탐색창 표시
     function showsidebar() {
         const place = document.querySelector(".place");
         const info = document.querySelector(".info");
@@ -251,6 +330,10 @@ return response.json();
             
             if(search[0].level == '2'){
                 for(i=1;i<search.length;i++){
+                    let newinfo = document.createElement('div');
+                    info.appendChild(newinfo);
+                    document.querySelectorAll(".info div")[i-1].className = "info_"+i;
+                    
                     let newname = document.createElement('h3');
                     let newimg = document.createElement('img');
                     let newdes = document.createElement('p');
@@ -276,9 +359,14 @@ return response.json();
                 place.querySelector("ul li img").setAttribute("src", "./img/star.svg");
                 place.querySelectorAll('ul li')[1].innerText = (search[0].star_rating)+" / 하위항목 : "+(search.length-1);
                 for(i=1;i<search.length;i++){
+                    let newinfo = document.createElement('div');
+                    info.appendChild(newinfo);
+                    document.querySelectorAll(".info div")[i-1].className = "info_"+i;
+
                     let newname = document.createElement('h3');
                     let newimg = document.createElement('img');
                     let newdes = document.createElement('p');
+                    
                     info.querySelector(".info_"+i).appendChild(newname);
                     info.querySelector(".info_"+i).appendChild(newimg);
                     info.querySelector(".info_"+i).appendChild(newdes);
