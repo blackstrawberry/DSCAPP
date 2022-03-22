@@ -1,4 +1,3 @@
-@charset "UTF-8";
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap");
 @font-face {
   font-family: SCDream3;
@@ -235,13 +234,10 @@ header {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
 }
 
 .contents .child1, .contents .child2, .contents .child3 {
   margin-right: 10px;
-  margin-bottom: 10px;
   font-size: 13px;
   font-weight: 300;
   background-color: #ff5234;
@@ -299,156 +295,116 @@ header {
   padding: 0 5px;
 }
 
-.contents .info {
-  padding-bottom: 100px;
-}
-
 .contents .info .first {
   display: none;
-}
-
-.contents .info ul {
-  padding-top: 10px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.contents .info ul li {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  padding-right: 5px;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.contents .info ul li img {
-  width: 20px;
-  height: 20px;
-  -webkit-transform: translateY(1px);
-          transform: translateY(1px);
-}
-
-.contents .info ul li span {
-  font-size: 15px;
-  padding: 0 5px;
-}
-
-.contents .info div {
-  margin-bottom: 30px;
-  -webkit-box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-          box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-}
-
-.contents .info div h3 {
-  font-size: 16px;
-  font-weight: 500;
-  padding: 5px 10px;
-  color: #ff5234;
-}
-
-.contents .info div p {
-  font-size: 13px;
-  padding: 5px 10px 15px;
 }
 
 ::-webkit-scrollbar {
   display: none;
 }
 
-.modal-button {
-  position: fixed;
-  z-index: 999;
-  bottom: 25px;
-  right: 25px;
-  border: none;
-  background-color: #ff5234;
-  border-radius: 4px;
-  padding: 3px 10px 5px;
-  color: #fff;
-  cursor: pointer;
-  -webkit-box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-          box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-}
-
-.modal-button::before {
-  position: relative;
-  z-index: 0;
-  content: '리뷰 작성하기 +';
-  font-size: 15px;
-  color: #fff;
-}
-
-#modal.modal-overlay {
+.swiper {
   width: 100%;
-  height: 100%;
-  position: absolute;
-  left: 0;
-  top: 0;
-  display: none;
+  height: 250px;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+  /* Center slide text vertically */
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  background: rgba(255, 255, 255, 0.25);
-  -webkit-box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-          box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  backdrop-filter: blur(1.5px);
-  -webkit-backdrop-filter: blur(1.5px);
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
-#modal .modal-window {
-  background: rgba(69, 139, 197, 0.7);
-  -webkit-box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-          box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  backdrop-filter: blur(13.5px);
-  -webkit-backdrop-filter: blur(13.5px);
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  width: 400px;
-  height: 500px;
-  position: relative;
-  top: -100px;
+.swiper-slide::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 0;
+}
+
+.swiper-slide h3 {
+  position: absolute;
+  font-size: 15px;
+  border-radius: 8px;
+  top: 10px;
+  left: 10px;
+  overflow: hidden;
+  padding: 0px 1px 2px 1px;
+  color: #fff;
+  background-color: #ff5234;
+  padding: 2px 10px 4px;
+}
+
+.swiper-slide p {
+  position: absolute;
+  font-size: 13px;
   padding: 10px;
+  bottom: 0px;
+  color: #fff;
+  font-weight: 300;
+  text-align: left;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
-#modal .title {
-  padding-left: 10px;
-  display: inline;
-  text-shadow: 1px 1px 2px gray;
-  color: white;
+.swiper-pagination {
+  left: unset !important;
+  text-align: center !important;
+  top: 10px;
+  right: 10px;
+  font-size: 11px;
+  color: #000;
+  font-weight: 400;
+  height: 25px !important;
+  width: 40px !important;
+  background: rgba(0, 0, 0, 0.5) !important;
+  color: #fff !important;
+  border-radius: 7px !important;
+  line-height: 22px !important;
 }
 
-#modal .title h2 {
-  display: inline;
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 250px;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
-#modal .close-area {
-  display: inline;
-  float: right;
-  padding-right: 10px;
-  cursor: pointer;
-  text-shadow: 1px 1px 2px gray;
-  color: white;
+.swiper-button-next:after, .swiper-rtl .swiper-button-prev:after {
+  content: 'next';
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  color: #fff !important;
+  background: rgba(0, 0, 0, 0.2) !important;
+  text-align: center !important;
+  padding: 4px 6px 4px 7px !important;
+  border-radius: 50px !important;
 }
 
-#modal .content {
-  margin-top: 20px;
-  padding: 0px 10px;
-  text-shadow: 1px 1px 2px gray;
-  color: white;
+.swiper-button-prev:after, .swiper-rtl .swiper-button-next:after {
+  content: 'prev';
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  color: #fff !important;
+  background: rgba(0, 0, 0, 0.2) !important;
+  text-align: center !important;
+  padding: 4px 7px 4px 6px !important;
+  border-radius: 50px !important;
 }
 /*# sourceMappingURL=common.css.map */
