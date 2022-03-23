@@ -341,8 +341,8 @@ header {
 
 .contents .info div {
   margin-bottom: 30px;
-  -webkit-box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-          box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+          box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 .contents .info div h3 {
@@ -355,6 +355,18 @@ header {
 .contents .info div p {
   font-size: 13px;
   padding: 5px 10px 15px;
+}
+
+.contents .info_1 ul {
+  padding: 8px;
+}
+
+.contents .info_2 ul {
+  padding: 8px;
+}
+
+.contents .info_3 ul {
+  padding: 8px;
 }
 
 ::-webkit-scrollbar {
@@ -411,9 +423,9 @@ header {
 }
 
 #modal .modal-window {
-  background: rgba(69, 139, 197, 0.7);
-  -webkit-box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-          box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  background: #fff;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+          box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
   backdrop-filter: blur(13.5px);
   -webkit-backdrop-filter: blur(13.5px);
   border-radius: 10px;
@@ -428,12 +440,13 @@ header {
 #modal .title {
   padding-left: 10px;
   display: inline;
-  text-shadow: 1px 1px 2px gray;
-  color: white;
+  color: #000;
 }
 
 #modal .title h2 {
   display: inline;
+  font-size: 20px;
+  font-weight: 500;
 }
 
 #modal .close-area {
@@ -441,14 +454,45 @@ header {
   float: right;
   padding-right: 10px;
   cursor: pointer;
-  text-shadow: 1px 1px 2px gray;
-  color: white;
+  color: #000;
 }
 
 #modal .content {
   margin-top: 20px;
   padding: 0px 10px;
-  text-shadow: 1px 1px 2px gray;
-  color: white;
+  color: #000;
+}
+
+.modal-form p {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.modal-form p select {
+  margin-top: 5px;
+}
+
+.modal-form p .modal-review {
+  padding: 5px 0 70px 5px;
+}
+
+#modal button {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  border: none;
+  background-color: #ff5234;
+  padding: 10px;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
 }
 /*# sourceMappingURL=common.css.map */
