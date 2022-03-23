@@ -276,12 +276,12 @@ header{position:relative;z-index: 999;}
     color: #000;
   }
   .modal-form p{
-      display: flex;flex-direction: column;
-      margin-bottom: 10px;
-      select{margin-top: 5px;}
-      .modal-review{
-        padding: 5px 0 70px 5px;
-      }
+    display: flex;flex-direction: column;
+    margin-bottom: 10px;
+    input,select{margin-top: 5px;}
+    .modal-review{
+    padding: 5px 0 70px 5px;
+    }
   }
   #modal button{
       position:absolute;

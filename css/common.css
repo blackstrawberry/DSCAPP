@@ -474,7 +474,7 @@ header {
   margin-bottom: 10px;
 }
 
-.modal-form p select {
+.modal-form p input, .modal-form p select {
   margin-top: 5px;
 }
 
